@@ -32,16 +32,20 @@ export const movieSlice = createSlice({
     page: 1,
     search: 'marvel',
     list: [],
+    posterURL: '',
   },
   reducers: {
-    initList: (state, action) => {
-      state.list = action.payload;
+    initList: (state, { payload }) => {
+      state.list = payload;
+    },
+    setPosterURL: (state, { payload }) => {
+      state.posterURL = payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(nextPage.fulfilled, (state, action) => {
+    builder.addCase(nextPage.fulfilled, (state, { payload }) => {
       state.page += 1;
-      state.list = [...state.list, ...action.payload];
+      state.list = [...state.list, ...payload];
     });
 
     builder.addCase(
@@ -55,6 +59,6 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { initList } = movieSlice.actions;
+export const { initList, setPosterURL } = movieSlice.actions;
 
 export default movieSlice.reducer;

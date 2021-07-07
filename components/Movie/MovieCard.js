@@ -1,11 +1,22 @@
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+
+import { setPosterURL } from '../../shared/state/movieSlice';
 
 export default function MovieCard({ movie }) {
   const { Poster, Title, Year, Type, imdbID } = movie;
+  const dispatch = useDispatch();
 
   const Banner = () => {
     if (Poster.includes('amazon.com')) {
-      return <img src={Poster} alt={Title} className="w-full" />;
+      return (
+        <img
+          src={Poster}
+          alt={Title}
+          className="w-full"
+          onClick={() => dispatch(setPosterURL(Poster))}
+        />
+      );
     }
 
     return <div className="bg-black absolute inset-0"></div>;
