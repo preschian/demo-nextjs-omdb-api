@@ -6,8 +6,7 @@ export const nextPage = createAsyncThunk(
   'movie/nextPageStatus',
   async (_, { getState }) => {
     const { search, page } = getState().movie;
-    const { data } = await apiSearch('/', {
-      s: search,
+    const { data } = await apiSearch(search, {
       page: page + 1,
     });
 
@@ -18,9 +17,7 @@ export const nextPage = createAsyncThunk(
 export const searchMovie = createAsyncThunk(
   'movie/searchMovieStatus',
   async (search) => {
-    const { data } = await apiSearch('/', {
-      s: search,
-    });
+    const { data } = await apiSearch(search);
 
     return {
       search,

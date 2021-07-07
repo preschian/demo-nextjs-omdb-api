@@ -1,5 +1,7 @@
+import Link from 'next/link';
+
 export default function MovieCard({ movie }) {
-  const { Poster, Title, Year, Type } = movie;
+  const { Poster, Title, Year, Type, imdbID } = movie;
 
   const Banner = () => {
     if (Poster.includes('amazon.com')) {
@@ -15,7 +17,9 @@ export default function MovieCard({ movie }) {
         <Banner />
       </div>
       <div className="p-4 flex-1">
-        <p>{Title}</p>
+        <Link href={`/movie/${imdbID}`}>
+          <a>{Title}</a>
+        </Link>
 
         <div className="flex text-xs gap-2 mt-2">
           <p className="bg-gray-700 px-2 rounded">{Year}</p>
