@@ -1,23 +1,13 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { apiSearch } from '../../shared/api';
+import { nextPage } from '../../shared/state/movieSlice';
 
 // components
 import MovieCard from './MovieCard';
 
-function Movie({ movies }) {
-  const [page, setPage] = useState(1);
-  const [list, setList] = useState(movies.Search);
-
-  const nextPage = async () => {
-    const next = page + 1;
-    const { data } = await apiSearch('marvel', {
-      page: next,
-    });
-
-    setPage(next);
-    setList((state) => [...state, ...data.Search]);
-  };
+function Movie() {
+  const list = useSelector((state) => state.movie.list);
+  const dispatch = useDispatch();
 
   return (
     <div className="container py-6">
@@ -29,7 +19,7 @@ function Movie({ movies }) {
 
       <div
         className="bg-gray-900 text-white rounded text-center p-2 mt-4"
-        onClick={nextPage}
+        onClick={() => dispatch(nextPage())}
       >
         Load more. . .
       </div>
