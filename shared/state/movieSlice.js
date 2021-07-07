@@ -8,10 +8,24 @@ export const nextPage = createAsyncThunk(
     const { search, page } = getState().movie;
     const { data } = await apiSearch('/', {
       s: search,
-      page,
+      page: page + 1,
     });
 
     return data.Search;
+  },
+);
+
+export const searchMovie = createAsyncThunk(
+  'movie/searchMovieStatus',
+  async (search) => {
+    const { data } = await apiSearch('/', {
+      s: search,
+    });
+
+    return {
+      search,
+      list: data.Search,
+    };
   },
 );
 
@@ -25,7 +39,6 @@ export const movieSlice = createSlice({
   reducers: {
     initList: (state, action) => {
       state.list = action.payload;
-      state.page += 1;
     },
   },
   extraReducers: (builder) => {
@@ -33,6 +46,15 @@ export const movieSlice = createSlice({
       state.page += 1;
       state.list = [...state.list, ...action.payload];
     });
+
+    builder.addCase(
+      searchMovie.fulfilled,
+      (state, { payload: { search, list } }) => {
+        state.page = 1;
+        state.search = search;
+        state.list = list;
+      },
+    );
   },
 });
 
