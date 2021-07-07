@@ -16,4 +16,13 @@ export const apiSearch = (s = 'marvel', config = {}) => {
   });
 };
 
+export const apiMovieByID = (id) => {
+  return api.get('/', {
+    params: {
+      i: id,
+      plot: 'full',
+    },
+  });
+};
+
 export default api;

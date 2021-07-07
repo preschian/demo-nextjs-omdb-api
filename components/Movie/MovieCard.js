@@ -1,13 +1,25 @@
+import Link from 'next/link';
+
 export default function MovieCard({ movie }) {
-  const { Poster, Title, Year, Type } = movie;
+  const { Poster, Title, Year, Type, imdbID } = movie;
+
+  const Banner = () => {
+    if (Poster.includes('amazon.com')) {
+      return <img src={Poster} alt={Title} className="w-full" />;
+    }
+
+    return <div className="bg-black absolute inset-0"></div>;
+  };
 
   return (
     <div className="bg-gray-900 text-white rounded overflow-hidden flex">
-      <div className="w-1/4">
-        <img src={Poster} alt={Title} className="w-full" />
+      <div className="w-1/4 relative">
+        <Banner />
       </div>
       <div className="p-4 flex-1">
-        <p>{Title}</p>
+        <Link href={`/movie/${imdbID}`}>
+          <a>{Title}</a>
+        </Link>
 
         <div className="flex text-xs gap-2 mt-2">
           <p className="bg-gray-700 px-2 rounded">{Year}</p>
