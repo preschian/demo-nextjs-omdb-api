@@ -1,10 +1,18 @@
 export default function MovieCard({ movie }) {
   const { Poster, Title, Year, Type } = movie;
 
+  const Banner = () => {
+    if (Poster.includes('amazon.com')) {
+      return <img src={Poster} alt={Title} className="w-full" />;
+    }
+
+    return <div className="bg-black absolute inset-0"></div>;
+  };
+
   return (
     <div className="bg-gray-900 text-white rounded overflow-hidden flex">
-      <div className="w-1/4">
-        <img src={Poster} alt={Title} className="w-full" />
+      <div className="w-1/4 relative">
+        <Banner />
       </div>
       <div className="p-4 flex-1">
         <p>{Title}</p>
