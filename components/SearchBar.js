@@ -42,15 +42,19 @@ export default function SearchBar() {
           className="text-black px-2 w-full"
           onChange={debounceOnChange}
           onKeyPress={onEnter}
+          data-testid="search-input"
         />
       </div>
 
       {/* autocomplete */}
       {list.length > 0 && (
-        <div className="bg-gray-700 text-white absolute top-12 right-0 left-0 container z-10 py-2 flex flex-col gap-2">
+        <div
+          className="bg-gray-700 text-white absolute top-12 right-0 left-0 container z-10 py-2 flex flex-col gap-2"
+          data-testid="search-autocomplete"
+        >
           {list.slice(0, 3).map((movie) => {
             return (
-              <Link href={`/movie/${movie.imdbID}`}>
+              <Link href={`/movie/${movie.imdbID}`} key={movie.imdbID}>
                 <a className="flex gap-2 items-center">
                   <img
                     src={movie.Poster}
