@@ -15,17 +15,22 @@ export default function Poster() {
       <div className="absolute inset-0 bg-gray-900" onClick={close}></div>
 
       <div className="flex flex-col justify-center items-center relative z-10 m-6">
-        <img src={posterURL} alt="" className="w-full rounded" />
+        <img src={posterURL} className="w-full rounded" data-testid="poster" />
 
         <div className="flex mt-6 gap-2">
           <a
             className="bg-gray-700 rounded px-4 py-1"
             href={posterURL}
             target="_blank"
+            data-testid="poster-download"
           >
             Download Poster
           </a>
-          <div className="bg-gray-700 rounded" onClick={close}>
+          <div
+            className="bg-gray-700 rounded"
+            onClick={close}
+            data-testid="poster-close"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8"
