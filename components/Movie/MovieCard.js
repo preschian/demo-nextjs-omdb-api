@@ -15,11 +15,17 @@ export default function MovieCard({ movie }) {
           alt={Title}
           className="w-full"
           onClick={() => dispatch(setPosterURL(Poster))}
+          data-testid="movie-poster"
         />
       );
     }
 
-    return <div className="bg-black absolute inset-0"></div>;
+    return (
+      <div
+        className="bg-black absolute inset-0"
+        data-testid="movie-notfound"
+      ></div>
+    );
   };
 
   return (
