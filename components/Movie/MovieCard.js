@@ -29,7 +29,10 @@ export default function MovieCard({ movie }) {
   };
 
   return (
-    <div className="bg-gray-900 text-white rounded overflow-hidden flex">
+    <div
+      className="bg-gray-900 text-white rounded overflow-hidden flex"
+      data-testid="movie-card"
+    >
       <div className="w-1/4 relative">
         <Banner />
       </div>
