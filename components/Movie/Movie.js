@@ -18,18 +18,25 @@ function Movie() {
 
   return (
     <div className="container py-6">
-      <div className="flex flex-col gap-4">
-        {list.map((movie, index) => {
-          return <MovieCard key={movie.imdbID + index} movie={movie} />;
-        })}
-      </div>
+      {list && (
+        <div className="flex flex-col gap-4">
+          {list.map((movie, index) => {
+            return <MovieCard key={movie.imdbID + index} movie={movie} />;
+          })}
+        </div>
+      )}
 
-      <div
-        className="bg-gray-900 text-white rounded text-center p-2 mt-4"
-        ref={containerRef}
-      >
-        Load more. . .
-      </div>
+      {/* TODO: replace with loading state */}
+      {list && (
+        <div
+          className="bg-gray-900 text-white rounded text-center p-2 mt-4"
+          ref={containerRef}
+        >
+          Load more. . .
+        </div>
+      )}
+
+      {!list && <p className="text-center">Please try another keywords</p>}
     </div>
   );
 }
