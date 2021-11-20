@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
@@ -11,16 +11,6 @@ export default function SearchBar() {
   const [text, setText] = useState('');
   const [list, setList] = useState([]);
 
-  useEffect(async () => {
-    const { data } = await apiSearch(text);
-
-    if (data.Response === 'True') {
-      setList(data.Search);
-    } else {
-      setList([]);
-    }
-  }, [text]);
-
   const onEnter = (e) => {
     if (e.key === 'Enter') {
       dispatch(searchMovie(text));
@@ -31,7 +21,24 @@ export default function SearchBar() {
     setText(e.target.value);
   };
 
-  const debounceOnChange = useMemo(() => debounce(onChange, 500), []);
+  const autoComplete = useCallback(
+    debounce(async (text) => {
+      const { data } = await apiSearch(text);
+
+      if (data.Response === 'True') {
+        setList(data.Search);
+      } else {
+        setList([]);
+      }
+    }, 500),
+    [],
+  );
+
+  useEffect(async () => {
+    if (text.length > 0) {
+      autoComplete(text);
+    }
+  }, [text]);
 
   return (
     <div className="relative">
@@ -40,7 +47,7 @@ export default function SearchBar() {
           type="text"
           placeholder="Search movie. . ."
           className="text-black px-2 w-full"
-          onChange={debounceOnChange}
+          onChange={onChange}
           onKeyPress={onEnter}
           data-testid="search-input"
         />
